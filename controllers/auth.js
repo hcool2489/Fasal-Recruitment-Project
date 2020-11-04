@@ -75,7 +75,9 @@ exports.doSignup = (req, res) => {
                 });
         })
         .then(result => {
-            res.redirect('/login/Account Created, Login to Continue');
+            if(result){
+                res.redirect('/login/Account Created, Login to Continue');
+            }
         })
         .catch(err => {
             console.log(err);

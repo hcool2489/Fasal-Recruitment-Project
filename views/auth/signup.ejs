@@ -14,7 +14,7 @@
         .msg{
             padding: 10px;
             margin: auto;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             background-color: rgb(196, 196, 48);
             color: white;
             border: 2px solid yellow;
@@ -38,6 +38,9 @@
 <body>
     <div class="box">
         <h1>SignUp</h1>
+        <% if(msg){ %>
+            <div class="msg"><%= msg %></div>
+        <% } %>
         <form action="/signup" method="post">
             <input required autocomplete type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email" placeholder="Email"><br>
             <input required type="text" name="name" placeholder="Full Name"><br>
