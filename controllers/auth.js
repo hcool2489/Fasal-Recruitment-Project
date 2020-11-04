@@ -21,11 +21,11 @@ exports.doLogin = (req, res) => {
             bcrypt
                 .compare(pass, user.password)
                 .then(result => {
-                    if(result){
+                    if (result) {
                         req.session.isLoggedIn = true;
                         req.session.user = user;
-                        return req.session.save(err=>{
-                            if(err){
+                        return req.session.save(err => {
+                            if (err) {
                                 console.log(err);
                             }
                             res.redirect('/dashboard');
@@ -75,7 +75,7 @@ exports.doSignup = (req, res) => {
                 });
         })
         .then(result => {
-            if(result){
+            if (result) {
                 res.redirect('/login/Account Created, Login to Continue');
             }
         })
@@ -85,6 +85,10 @@ exports.doSignup = (req, res) => {
 };
 
 exports.logout = (req, res) => {
-    console.log(req.body);
-    res.send("Logout");
+    req.session.destroy(err => {
+        if(err){
+            console.log(err);
+        }
+        res.redirect('/');
+    });
 };

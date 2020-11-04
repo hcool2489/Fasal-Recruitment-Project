@@ -29,9 +29,9 @@ app.use(authRoutes);
 app.use(webRoutes);
 
 //Landing Page
-// app.get('/', (req, res) => {
-//     res.render('home');
-// });
+app.get('/', (req, res) => {
+    res.render('home');
+});
 
 //404 Handler
 app.use((req, res) => {
