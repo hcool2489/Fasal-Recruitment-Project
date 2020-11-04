@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %></title>
+    <style>
+        .border-none{
+            border: 2px solid greenyellow;
+        }
+        .border-red{
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <form action="/signup" method="post">
+            <input required autocomplete type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email" placeholder="Email"><br>
+            <input required type="text" name="name" placeholder="Full Name"><br>
+            <input required type="number" min=10 max=100 name="age" placeholder="Age"><br>
+            <input checked type="radio" name="gender" id="male" value="Male"><label for="male">Male</label>
+            <input type="radio" name="gender" id="female" value="Female"><label for="female">Female</label><br>
+            <label required for="pImg">Profile Image: </label><input type="file" name="pImg" id="pImg"><br>
+            <input required autocomplete type="password" name="pass" id="pass" placeholder="Password" onkeyup="check_pass()">
+            <input required autocomplete type="password" id="cpass" placeholder="Confirm Password" onkeyup="check_pass()"><br><br>
+            <input type="submit" id="submit" value="SignUp" disabled>
+        </form>
+    </div>
+</body>
+    <script>
+        function check_pass() {
+            if (document.getElementById('pass').value == document.getElementById('cpass').value) {
+                document.getElementById('pass').setAttribute('class', 'border-none');
+                document.getElementById('cpass').setAttribute('class', 'border-none');
+                document.getElementById('submit').disabled = false;
+            } else {
+                document.getElementById('pass').setAttribute('class', 'border-red');
+                document.getElementById('cpass').setAttribute('class', 'border-red');
+                document.getElementById('submit').disabled = true;
+            }
+        }
+    </script>
+</html>
