@@ -5,11 +5,7 @@ const mongoose = require('mongoose');
 const session = require('express-session')({
     secret: 'FA$alPrjid39 (112cookieKey)',
     resave: false,
-    saveUninitialized: true,
-    unset: 'destroy',
-    cookie: {
-        maxAge: 60 * 60 * 24 * 5 * 1000
-    }
+    saveUninitialized: false
 });
 
 const MONGODB_URI = require('./mongoURI');
@@ -21,6 +17,7 @@ app.set('view engine', 'ejs');
 
 //Routes
 const authRoutes = require('./routes/auth');
+const webRoutes = require('./routes/web');
 
 //req body-parser, cookie-parser, csrf and assigning static folder as public
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,6 +26,7 @@ app.use(session);
 
 //Using Routes
 app.use(authRoutes);
+app.use(webRoutes);
 
 //Landing Page
 // app.get('/', (req, res) => {
@@ -40,5 +38,12 @@ app.use((req, res) => {
     res.render('error', { pageTitle: 'Error : 404', errorCode: '404', errorDescription: 'Page Not Found' });
 });
 
-//Server listening on port
-app.listen(3000);
+//Server listening on port and mongoose connect
+mongoose
+    .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(result => {
+        app.listen(3000);
+    })
+    .catch(err => {
+        console.log(err);
+    });
