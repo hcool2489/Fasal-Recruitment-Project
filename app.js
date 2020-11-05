@@ -2,10 +2,14 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const multer = require('multer');
 const session = require('express-session')({
-    secret: 'FA$alPrjid39 (112cookieKey)',
+    secret: 'FA$alPrjid39 (112cookieNSessKey)',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 60 * 60 * 24 * 5 * 1000
+    }
 });
 
 const MONGODB_URI = require('./mongoURI');
@@ -19,9 +23,33 @@ app.set('view engine', 'ejs');
 const authRoutes = require('./routes/auth');
 const webRoutes = require('./routes/web');
 
-//req body-parser, cookie-parser, csrf and assigning static folder as public
+const fileStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'images');
+    },
+    filename: (req, file, cb) => {
+        cb(null, new Date().toISOString() + '-' + file.originalname);
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    if (
+        file.mimetype === 'image/png' ||
+        file.mimetype === 'image/jpg' ||
+        file.mimetype === 'image/jpeg' ||
+        file.mimetype === 'image/gif'
+    ) {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+};
+
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+    multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
+);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(session);
 
 //Using Routes

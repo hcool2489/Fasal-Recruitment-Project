@@ -60,7 +60,7 @@ exports.doSignup = (req, res) => {
     const name = req.body.name;
     const age = req.body.age;
     const gender = req.body.gender;
-    //const pImg = req.body.pImg;
+    const image = req.file;
     User.findOne({ email: email })
         .then(userDoc => {
             if (userDoc) {
@@ -74,7 +74,8 @@ exports.doSignup = (req, res) => {
                         password: hashedPass,
                         name: name,
                         age: age,
-                        gender: gender
+                        gender: gender,
+                        image: image.path
                     });
                     return user.save();
                 });
