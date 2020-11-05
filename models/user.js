@@ -11,18 +11,12 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    name: {
-        type: String
-    },
-    age: {
-        type: String
-    },
-    gender: {
-        type: String
-    },
-    profileImgUrl: {
-        type: String
-    }
+    resetToken: String,
+    resetTokenExpiration: Date,
+    name: String,
+    age: String,
+    gender: String,
+    profileImgUrl: String
 });
 
 module.exports = mongoose.model('User', userSchema);

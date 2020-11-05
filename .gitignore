@@ -108,3 +108,6 @@ dist
 
 # mongoDB Creds
 mongoURI.js
+
+# mail Creds
+mailCreds.js
