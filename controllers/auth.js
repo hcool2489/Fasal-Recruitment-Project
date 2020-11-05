@@ -66,6 +66,9 @@ exports.doSignup = (req, res) => {
             if (userDoc) {
                 return res.redirect('/signup/Email Exists');
             }
+            if (!image) {
+                return res.redirect('/signup/Attached file is not an image.');
+            }
             return bcrypt
                 .hash(pass, 12)
                 .then(hashedPass => {
@@ -156,9 +159,9 @@ exports.newPassword = (req, res) => {
     const token = req.params.token;
     User.findOne({ resetToken: token, resetTokenExpiration: { $gt: Date.now() } })
         .then(user => {
-            if(user){
+            if (user) {
                 res.render('auth/new-password', { pageTitle: "Update Password", userId: user._id.toString(), token: token });
-            }else{
+            } else {
                 res.redirect('/login/Token Invalid or Expired');
             }
         })

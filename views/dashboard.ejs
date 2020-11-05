@@ -6,34 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= pageTitle %></title>
     <style>
-        body{
+        body {
             margin: 0;
             padding: 0;
         }
-        .box{
-            margin:auto;
+
+        .main {
+            margin: auto;
+            text-align: center;
+            display: flex;
+        }
+
+        .box {
+            flex: 1;
             padding: 10px;
-            width: 500px;
             text-align: center;
             border: 2px solid gray;
             border-radius: 5px;
         }
-        .logout{
+
+        .logout {
             position: absolute;
             right: 30px;
         }
-        .nav{
+
+        .nav {
             color: white;
             background-color: teal;
             margin-bottom: 20px;
         }
-        .nav a{
+
+        .nav a {
             color: white;
         }
-        .nav a:hover{
+
+        .nav a:hover {
             color: coral;
         }
-        .nav-item{
+
+        .nav-item {
             margin: 20px;
             display: inline-block;
         }
@@ -45,30 +56,32 @@
         <h1 class="nav-item">Welcome, <%= name %></h1>
         <h2 class="nav-item"><a class="logout" href="/logout">Logout</a></h2>
     </div>
-    <div class="box">
-        <h2>Profile</h2>
-        <table style="margin:auto">
-            <tr>
-                <th>Email:</th>
-                <td><input disabled type="text" value="<%= email %>"></td>
-            </tr>
-            <tr>
-                <th>Name:</th>
-                <td><input disabled type="text" value="<%= name %>"></td>
-            </tr>
-            <tr>
-                <th>Age:</th>
-                <td><input disabled type="text" value="<%= age %>"></td>
-            </tr>
-            <tr>
-                <th>Gender:</th>
-                <td><input disabled type="text" value="<%= gender %>"></td>
-            </tr>
-            <!-- <tr>
-                <th>Image:</th>
-                <td><img src="<%=  %>" alt=""></td>
-            </tr> -->
-        </table>
+    <div class="main">
+        <div class="box">
+            <h2>Profile</h2>
+            <table style="margin:auto">
+                <tr>
+                    <th>Email:</th>
+                    <td><input disabled type="text" value="<%= email %>"></td>
+                </tr>
+                <tr>
+                    <th>Name:</th>
+                    <td><input disabled type="text" value="<%= name %>"></td>
+                </tr>
+                <tr>
+                    <th>Age:</th>
+                    <td><input disabled type="text" value="<%= age %>"></td>
+                </tr>
+                <tr>
+                    <th>Gender:</th>
+                    <td><input disabled type="text" value="<%= gender %>"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="box">
+            <h2>Profile Image</h2>
+            <img src="<%= image %>" alt="Profile Image" style="width:250px;">
+        </div>
     </div>
 </body>
 
